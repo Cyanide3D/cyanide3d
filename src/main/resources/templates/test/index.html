@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Index</title>
+</head>
+<body>
+
+<div class="content">
+    <form th:method="POST" th:action="@{/test}" th:object="${user}">
+        <label for="login">Login: </label>
+        <input type="text" th:field="*{login}" id="login"/>
+        <br>
+        <label for="password">Password: </label>
+        <input type="text" th:field="*{password}" id="password"/>
+        <br>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+</body>
+</html>
