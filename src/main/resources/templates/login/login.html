@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <meta charset="UTF-8">
     <title>Site</title>
-    <link th:href="@{/css/index.css}" rel="stylesheet" href="/static/css/index.css">
 </head>
 <body th:style="'background: url(/img/321.jpg) no-repeat center center fixed;'">
 <div class="wrap">
@@ -14,23 +14,25 @@
     </header>
     <h2 class="news">News</h2>
     <div class="content">
-        <div class="newslist" th:each="news : ${news}">
-            <a th:href="@{/news/{id}(id=${news.getId()})}" th:text="${news.getName()}">user</a>
-            <div class="bodynews">
-                <p th:utext="${news.getBody()}"></p>
-            </div>
+        <h2>  Login</h2>
+        <hr>
+        <div th:if="${param.error}">
+            Invalid username and password.
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text" name="username"/> </label></div>
+            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <div><input type="submit" value="Sign In"/></div>
         </form>
     </div>
     <aside>
         <h2>Content</h2>
         <ul>
             <li><a href="/">Main page</a></li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/news/new">Make news</a></li>
             <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-            <li sec:authorize="isAuthenticated()"><a href="/login?logout">Logout</a></li>
             <li sec:authorize="!isAuthenticated()"><a href="/registration">Registration</a></li>
         </ul>
     </aside>

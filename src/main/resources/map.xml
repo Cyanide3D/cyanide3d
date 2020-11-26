@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.defiant.cyanide3d.models.Usr" table="usr" schema="public" catalog="server">
+        <id name="id">
+            <column name="id" sql-type="integer"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="enabled">
+            <column name="enabled" sql-type="boolean" not-null="true"/>
+        </property>
+        <property name="authority">
+            <column name="authority" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

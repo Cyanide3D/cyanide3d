@@ -14,16 +14,17 @@
     </header>
     <h2 class="news">News</h2>
     <div class="content">
-        <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
+        <h2>  Registration</h2>
+        <hr>
+        <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+            <label for="login">Login: </label>
+            <input type="text" th:field="*{username}" id="login"/>
+            <br>
+            <label for="password">Password: </label>
+            <input type="text" th:field="*{password}" id="password"/>
+            <br>
+            <br>
+            <input type="submit" value="Register">
         </form>
     </div>
     <aside>
@@ -31,6 +32,7 @@
         <ul>
             <li><a href="/">Main page</a></li>
             <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/registration">Registration</a></li>
         </ul>
     </aside>
     <footer>

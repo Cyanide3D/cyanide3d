@@ -1,47 +1,71 @@
 package com.defiant.cyanide3d.models;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "table usr")
-public class User {
+@Table(name = "users")
+public class User implements UserDetails {
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Role> authorities;
+    @Basic
+    private String password;
+    @Basic
+    private String username;
+    @Basic
+    @Column(name = "expired")
+    boolean accountNonExpired;
+    @Basic
+    @Column(name = "locked")
+    private boolean accountNonLocked;
+    @Basic
+    @Column(name = "credentialsexpired")
+    private boolean credentialsNonExpired;
+    @Basic
+    @Column(name = "enabled")
+    private boolean enabled;
     @Id
-    int id;
-    String username;
-    String login;
-    String password;
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    //@CollectionTable(name = "usr_role", joinColumns = @JoinColumn(name = "id"))
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> roles;
-//
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
+    public User(){
 
-    public User(int id, String username, String login, String password) {
-        this.id = id;
+    }
+
+    public User(String password, String username, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        authorities = new ArrayList<>();
+        this.password = password;
         this.username = username;
-        this.login = login;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.id = id;
+    }
+
+    @Override
+    public List<Role> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Role> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    @Override
     public String getUsername() {
         return username;
     }
@@ -50,19 +74,47 @@ public class User {
         this.username = username;
     }
 
-    public String getLogin() {
-        return login;
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
