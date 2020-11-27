@@ -3,6 +3,9 @@ package com.defiant.cyanide3d.models;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Role> authorities;
+    @NotEmpty(message = "Password should not be empty")
+    @Size(min = 4, max = 10, message = "Password should be between 4 and 10")
     @Basic
     private String password;
+    @NotEmpty(message = "Username should not be empty")
+    @Size(min = 4, max = 8, message = "Username should be between 4 and 8")
     @Basic
     private String username;
     @Basic
@@ -35,12 +42,16 @@ public class User implements UserDetails {
     private String nameuser;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private UserAvatar avatarUrl;
+    @NotEmpty(message = "EMail should not be empty")
+    @Email(message = "Not valid email")
+    @Column(name = "email")
+    String email;
 
     public User(){
 
     }
 
-    public User(String password, String username, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String nameuser) {
+    public User(String password, String username, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String nameuser, String email) {
         authorities = new ArrayList<>();
         this.password = password;
         this.username = username;
@@ -48,8 +59,9 @@ public class User implements UserDetails {
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
-        this.id = id;
         this.nameuser = nameuser;
+        this.id = id;
+        this.email = email;
     }
 
     @Override
@@ -137,5 +149,13 @@ public class User implements UserDetails {
 
     public void setAvatarUrl(UserAvatar avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

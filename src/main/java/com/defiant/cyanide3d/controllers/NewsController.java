@@ -3,7 +3,12 @@ package com.defiant.cyanide3d.controllers;
 import com.defiant.cyanide3d.dao.NewsDao;
 import com.defiant.cyanide3d.models.News;
 import com.defiant.cyanide3d.services.NewsService;
+import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +19,8 @@ public class NewsController {
 
     @Autowired
     NewsService newsService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
@@ -29,7 +36,8 @@ public class NewsController {
 
     @PostMapping()
     public String create(@ModelAttribute("news") News news) {
-        newsService.save(news);
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        newsService.save(news, user.getUsername());
         return "redirect:/";
     }
 

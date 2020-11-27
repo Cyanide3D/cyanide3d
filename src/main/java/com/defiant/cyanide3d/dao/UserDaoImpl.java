@@ -9,6 +9,7 @@ import com.defiant.cyanide3d.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
@@ -34,9 +35,10 @@ public class UserDaoImpl implements UserDao{
         avatarRepository.save(new UserAvatar(avatarUrl, user));
     }
 
+    @Transactional
     @Override
     public void update(User user) {
-        userRepository.updateById(user.getId(), user.getUsername(), user.getPassword());
+        userRepository.updateById(user.getId(), user.getUsername(), user.getPassword(), user.getNameuser(), user.getEmail());
     }
 
     @Override

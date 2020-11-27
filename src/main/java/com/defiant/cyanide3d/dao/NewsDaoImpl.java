@@ -32,7 +32,7 @@ public class NewsDaoImpl implements NewsDao{
 
     @Transactional
     public void update(int id, News updatedNews) {
-        newsRepository.updateNewsById(id, updatedNews.getName(), updatedNews.getBody());
+        newsRepository.updateNewsById(id, updatedNews.getName(), updatedNews.getBody(), updatedNews.getDescription(), updatedNews.getDate());
     }
 
     public void delete(int id) {

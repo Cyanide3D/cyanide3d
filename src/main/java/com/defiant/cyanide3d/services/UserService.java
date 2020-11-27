@@ -15,7 +15,7 @@ public class UserService implements UserDetailsService {
     UserDao userDao;
 
     public void save(User user) {
-        User newUser = new User(user.getPassword(), user.getUsername(), true, true, true, true, user.getNameuser());
+        User newUser = new User(user.getPassword(), user.getUsername(), true, true, true, true, user.getNameuser(), user.getEmail());
         userDao.saveUser(newUser);
         userDao.saveUserRole("ROLE_USER", newUser);
         userDao.saveUserAvatar("DEFAULT_AVATAR", newUser);
@@ -25,9 +25,13 @@ public class UserService implements UserDetailsService {
         userDao.update(user);
     }
 
+    public User findUserByUsername(String username){
+        return userDao.findUserByUsername(username);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = userDao.findUserByUsername(username);
-        return user == null ? new User(" ", " ", false, false, false, false, " ") : user;
+        return user == null ? new User(" ", " ", false, false, false, false, " ", " ") : user;
     }
 }

@@ -12,6 +12,6 @@ import javax.transaction.Transactional;
 @Repository
 public interface NewsRepository extends CrudRepository<News, Integer> {
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE News n SET n.name = :name, n.body = :body WHERE n.id = :id")
-    void updateNewsById(@Param("id") int id, @Param("name") String name, @Param("body") String body);
+    @Query("UPDATE News n SET n.name = :name, n.body = :body, n.description = :description, n.date = :date WHERE n.id = :id")
+    void updateNewsById(@Param("id") int id, @Param("name") String name, @Param("body") String body, @Param("description") String description, @Param("date") String date);
 }

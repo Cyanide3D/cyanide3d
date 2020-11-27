@@ -17,7 +17,7 @@
         <div class="newslist" th:each="news : ${news}">
             <a th:href="@{/news/{id}(id=${news.getId()})}" th:text="${news.getName()}">user</a>
             <div class="bodynews">
-                <p th:utext="${news.getBody()}"></p>
+                <p th:utext="${news.getDescription()}"></p>
             </div>
         </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">

@@ -14,13 +14,24 @@ public class News {
     private String name;
     @Basic
     private String body;
+    @Basic
+    @Column(name = "description")
+    private String description;
+    @Basic
+    private String date;
+    @Basic
+    private String author;
 
-    public News(int id, String name, String body) {
+    public News(int id, String name, String body, String description, String date, String author) {
         this.id = id;
         this.name = name;
         this.body = body;
+        this.description = description;
+        this.date = date;
+        this.author = author;
 
     }
+
     public News() {
     }
 
@@ -46,5 +57,29 @@ public class News {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
