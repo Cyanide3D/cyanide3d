@@ -24,8 +24,7 @@ public class NewsService {
     public News edit(int id){
         News news = show(id);
         if (news == null) return null;
-        News newNews = new News(news.getId(),news.getName(),news.getBody().replace("<br>","\n"));
-        return newNews;
+        return new News(news.getId(),news.getName(),news.getBody().replace("<br>","\n"));
     }
 
     public void save(News news) {

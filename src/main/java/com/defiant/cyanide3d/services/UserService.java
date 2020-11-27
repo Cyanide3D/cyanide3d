@@ -15,9 +15,10 @@ public class UserService implements UserDetailsService {
     UserDao userDao;
 
     public void save(User user) {
-        User newUser = new User(user.getPassword(), user.getUsername(), true, true, true, true);
+        User newUser = new User(user.getPassword(), user.getUsername(), true, true, true, true, user.getNameuser());
         userDao.saveUser(newUser);
-        userDao.saveRole("ROLE_USER", newUser);
+        userDao.saveUserRole("ROLE_USER", newUser);
+        userDao.saveUserAvatar("DEFAULT_AVATAR", newUser);
     }
 
     public void update(User user) {
@@ -27,6 +28,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = userDao.findUserByUsername(username);
-        return user == null ? new User(" ", " ", false, false, false, false) : user;
+        return user == null ? new User(" ", " ", false, false, false, false, " ") : user;
     }
 }

@@ -1,9 +1,9 @@
 package com.defiant.cyanide3d.repositories;
 
-import com.defiant.cyanide3d.models.Role;
+import com.defiant.cyanide3d.models.UserAvatar;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role, Integer> {
+public interface AvatarRepository extends CrudRepository<UserAvatar, Integer> {
 }

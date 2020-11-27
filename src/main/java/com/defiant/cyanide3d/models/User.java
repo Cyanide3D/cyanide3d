@@ -31,12 +31,16 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "nameuser")
+    private String nameuser;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private UserAvatar avatarUrl;
 
     public User(){
 
     }
 
-    public User(String password, String username, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public User(String password, String username, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled, String nameuser) {
         authorities = new ArrayList<>();
         this.password = password;
         this.username = username;
@@ -45,6 +49,7 @@ public class User implements UserDetails {
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
         this.id = id;
+        this.nameuser = nameuser;
     }
 
     @Override
@@ -116,5 +121,21 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNameuser() {
+        return nameuser;
+    }
+
+    public void setNameuser(String nameuser) {
+        this.nameuser = nameuser;
+    }
+
+    public UserAvatar getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(UserAvatar avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

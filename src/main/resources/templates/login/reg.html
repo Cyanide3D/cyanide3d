@@ -20,6 +20,9 @@
             Username already is use!
         </div>
         <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+            <label for="nameuser">Username: </label>
+            <input type="text" th:field="*{nameuser}" id="nameuser"/>
+            <br>
             <label for="username">Login: </label>
             <input type="text" th:field="*{username}" id="username"/>
             <br>
