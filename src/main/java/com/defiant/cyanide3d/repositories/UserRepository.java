@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User, Integer> {
     User findByUsername(String username);
 
-//    @Modifying(clearAutomatically = true)
-//    @Query("UPDATE users u SET u.username = :username, u.password = :password WHERE u.id=:id")
-//    int updateById(@Param("id") int id, @Param("username") String username, @Param("password") String password);
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE User u SET u.username = :username, u.password = :password WHERE u.id=:id")
+    int updateById(@Param("id") int id, @Param("username") String username, @Param("password") String password);
 }

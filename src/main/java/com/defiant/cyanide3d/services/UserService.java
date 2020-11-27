@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void update(User user) {
-
+        userDao.update(user);
     }
 
     @Override

@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update(User user) {
+        userRepository.updateById(user.getId(), user.getUsername(), user.getPassword());
     }
 
     @Override
