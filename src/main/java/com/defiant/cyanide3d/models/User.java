@@ -16,11 +16,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Role> authorities;
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 4, max = 10, message = "Password should be between 4 and 10")
     @Basic
     private String password;
     @NotEmpty(message = "Username should not be empty")
-    @Size(min = 4, max = 8, message = "Username should be between 4 and 8")
+    @Size(min = 4, max = 10, message = "Username should be between 4 and 8")
     @Basic
     private String username;
     @Basic

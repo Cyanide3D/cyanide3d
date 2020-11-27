@@ -4,6 +4,7 @@ import com.defiant.cyanide3d.models.User;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/login")
     public String login() {
         return "login/login";
@@ -38,9 +42,12 @@ public class LoginController {
         if (bindingResult.hasErrors()){
             return "login/reg";
         }
-        if (userService.findUserByUsername(user.getUsername()).getUsername().equalsIgnoreCase(user.getUsername()) && userService.findUserByUsername(user.getUsername()).getEmail().equalsIgnoreCase(user.getEmail())) {
-            return "redirect:/registration?error";
+        if (userService.findUserByUsername(user.getUsername()) != null) {
+            if (userService.findUserByUsername(user.getUsername()).getUsername().equalsIgnoreCase(user.getUsername()) && userService.findUserByUsername(user.getUsername()).getEmail().equalsIgnoreCase(user.getEmail())) {
+                return "redirect:/registration?error";
+            }
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/";
     }

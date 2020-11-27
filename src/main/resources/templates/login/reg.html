@@ -19,23 +19,23 @@
         <div th:if="${param.error}">
             Username or Email already is use!
         </div>
-        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-        <form th:method="POST" th:action="@{/registration}" th:object="${user}">
-            <label for="nameuser">Username: </label>
+        <form class="formreg" th:method="POST" th:action="@{/registration}" th:object="${user}">
+            <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            <fieldset class="account-info">
+            <label class="reg" for="nameuser">Username: </label>
             <input type="text" th:field="*{nameuser}" id="nameuser"/>
-            <br>
             <label for="username">Login: </label>
-            <input type="text" th:field="*{username}" id="username"/>
-            <br>
+            <input class="reg" type="text" th:field="*{username}" id="username"/>
             <label for="password">Password: </label>
-            <input type="text" th:field="*{password}" id="password"/>
-            <br>
+            <input class="reg" type="text" th:field="*{password}" id="password"/>
             <label for="email">E-Mail: </label>
-            <input type="text" th:field="*{email}" id="email"/>
-            <br>
-            <input class="buttons" type="submit" value="Register">
+            <input class="reg" type="text" th:field="*{email}" id="email"/>
+            </fieldset>
+            <fieldset class="account-action">
+            <input class="btn" type="submit" value="Register">
+            </fieldset>
         </form>
     </div>
     <aside>
