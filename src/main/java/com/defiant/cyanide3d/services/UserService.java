@@ -8,18 +8,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
     UserDao userDao;
 
-    public void save(String username, String password) {
-        User user = new User(username, password, true, true, true, true);
-        userDao.saveUser(user);
-        userDao.saveRole("ROLE_USER", user);
+    public void save(User user) {
+        User newUser = new User(user.getPassword(), user.getUsername(), true, true, true, true);
+        userDao.saveUser(newUser);
+        userDao.saveRole("ROLE_USER", newUser);
     }
 
     public void update(User user) {

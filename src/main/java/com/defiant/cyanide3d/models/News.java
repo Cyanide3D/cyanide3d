@@ -1,10 +1,19 @@
 package com.defiant.cyanide3d.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "news")
 public class News {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic
     private int id;
-    String name;
-    String body;
+    @Basic
+    private String name;
+    @Basic
+    private String body;
 
     public News(int id, String name, String body) {
         this.id = id;
@@ -13,14 +22,6 @@ public class News {
 
     }
     public News() {
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     public int getId() {
@@ -37,5 +38,13 @@ public class News {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

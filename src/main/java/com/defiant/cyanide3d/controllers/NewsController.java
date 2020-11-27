@@ -2,6 +2,7 @@ package com.defiant.cyanide3d.controllers;
 
 import com.defiant.cyanide3d.dao.NewsDao;
 import com.defiant.cyanide3d.models.News;
+import com.defiant.cyanide3d.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class NewsController {
 
     @Autowired
-    NewsDao newsDao;
+    NewsService newsService;
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("news", newsDao.show(id));
+        model.addAttribute("news", newsService.show(id));
         return "news/show";
     }
 
@@ -28,25 +29,25 @@ public class NewsController {
 
     @PostMapping()
     public String create(@ModelAttribute("news") News news) {
-        newsDao.save(news);
+        newsService.save(news);
         return "redirect:/";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("news", newsDao.edit(id));
+        model.addAttribute("news", newsService.edit(id));
         return "news/edit";
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.PATCH, RequestMethod.POST})
     public String update(@ModelAttribute("news") News news, @PathVariable("id") int id) {
-        newsDao.update(id, news);
+        newsService.update(id, news);
         return "redirect:/news/" + id;
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
-        newsDao.delete(id);
+        newsService.delete(id);
         return "redirect:/";
     }
 }

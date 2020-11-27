@@ -1,6 +1,6 @@
 package com.defiant.cyanide3d.controllers;
 
-import com.defiant.cyanide3d.dao.NewsDao;
+import com.defiant.cyanide3d.dao.NewsDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     @Autowired
-    NewsDao newsDao;
+    NewsDaoImpl newsDaoImpl;
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("news", newsDao.index());
+        model.addAttribute("news", newsDaoImpl.index());
         return "index";
     }
 }
