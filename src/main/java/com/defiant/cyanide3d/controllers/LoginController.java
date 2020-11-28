@@ -1,5 +1,6 @@
 package com.defiant.cyanide3d.controllers;
 
+import com.defiant.cyanide3d.action.MailSender;
 import com.defiant.cyanide3d.models.User;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,17 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    MailSender mailSender;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/msg")
+    public String test(){
+        mailSender.send("killing100500@yandex.ru", "asdasd", "adasd");
+        return "redirect:/";
+    }
 
     @GetMapping("/login")
     public String login() {

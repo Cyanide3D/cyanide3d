@@ -68,7 +68,7 @@ a, a:visited{
     text-decoration: none;
     font-size: 20px;
     font-weight: bold;
-    font-family: "Comic Sans MS";
+    font-family: "Arial";
 }
 
 *,
@@ -113,7 +113,7 @@ fieldset {
     width: 100%;
 }
 .account-action {
-    background: #f0f0f2;
+    background: rgba(124, 179, 63, 0);
     border-top: 1px solid #c6c7cc;
     padding: 20px;
 }

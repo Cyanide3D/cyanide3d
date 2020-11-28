@@ -17,18 +17,22 @@
         <h2>  Login</h2>
         <hr>
         <div th:if="${param.error}">
-            Invalid username and password.
+            Invalid username or password.
         </div>
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
-        <form th:action="@{/login}" method="post">
+        <form class="formreg" th:action="@{/login}" method="post">
+            <fieldset class="account-info">
             <div><label> User Name : <input type="text" name="username"/> </label></div>
             <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input class="buttons" type="submit" value="Sign In"/></div>
-        </form>
-        <form th:method="GET" th:action="@{/registration}">
-            <input class="buttons" type="submit" value="Sign up"/>
+            </fieldset>
+            <fieldset class="account-action">
+            <div><input class="btn" type="submit" value="Sign In"/></div>
+                <form th:method="GET" th:action="@{/registration}">
+                    <input style="margin-left: 30px" class="btn" type="submit" value="Sign Up"/>
+                </form>
+            </fieldset>
         </form>
     </div>
     <aside>
