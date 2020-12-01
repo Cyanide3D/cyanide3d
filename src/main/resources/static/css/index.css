@@ -27,6 +27,10 @@
     height: 76%;
 }
 
+td,th {
+    padding: 5px;
+}
+
 .news{
     color: white;
     font-size: 32px;

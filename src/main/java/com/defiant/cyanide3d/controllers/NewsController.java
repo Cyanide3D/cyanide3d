@@ -1,17 +1,18 @@
 package com.defiant.cyanide3d.controllers;
 
-import com.defiant.cyanide3d.dao.NewsDao;
 import com.defiant.cyanide3d.models.News;
 import com.defiant.cyanide3d.services.NewsService;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/news")
@@ -21,6 +22,14 @@ public class NewsController {
     NewsService newsService;
     @Autowired
     UserService userService;
+
+    @GetMapping()
+    public String news(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+        List<News> allNews = newsService.index();
+        allNews.sort(Comparator.comparing(News::getId));
+        model.addAttribute("news", allNews.subList(Math.max(allNews.size() - page * 8,0),Math.max(allNews.size() - (page - 1) * 8,0)).stream().sorted(Comparator.comparing(News::getId).reversed()).collect(Collectors.toList()));
+        return "news/allnews";
+    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {

@@ -12,22 +12,17 @@
         <br>
         <hr>
     </header>
-    <h2 class="news">LeaderBoard</h2>
+    <h2 class="news">News</h2>
     <div class="content">
-            <table border="1">
-                <tr>
-                    <th>Avatar</th>
-                    <th>Nickname</th>
-                    <th>Level</th>
-                    <th>Exp</th>
-                </tr>
-                <tr th:each="leader : ${leaders}">
-                    <td><img style="border-radius: 50px" th:src="${leader.getAvatarUrl()}" height="40" width="40"/></td>
-                    <td><p th:text="${leader.getAsTag()}"/></td>
-                    <td><p th:text="${leader.getLevel()}"/></td>
-                    <td><p th:text="${leader.getExp()}"/></td>
-                </tr>
-            </table>
+        <div class="newslist" th:each="news : ${news}">
+            <a th:href="@{/news/{id}(id=${news.getId()})}" th:text="${news.getName()}">user</a>
+            <div class="bodynews">
+                <p th:utext="${news.getDescription()}"></p>
+            </div>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
     </div>
     <aside>
         <h2>Content</h2>

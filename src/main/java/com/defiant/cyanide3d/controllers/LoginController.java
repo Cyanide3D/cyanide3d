@@ -1,7 +1,6 @@
 package com.defiant.cyanide3d.controllers;
 
 import com.defiant.cyanide3d.models.User;
-import cyanide3d.msg.SendMessage;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 
 @Controller
