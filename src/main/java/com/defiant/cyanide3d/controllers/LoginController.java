@@ -1,11 +1,9 @@
 package com.defiant.cyanide3d.controllers;
 
-import com.defiant.cyanide3d.action.MailSender;
 import com.defiant.cyanide3d.models.User;
+import cyanide3d.msg.SendMessage;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @Controller
@@ -23,17 +22,6 @@ public class LoginController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    MailSender mailSender;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/msg")
-    public String test(){
-        mailSender.send("killing100500@yandex.ru", "asdasd", "adasd");
-        return "redirect:/";
-    }
 
     @GetMapping("/login")
     public String login() {
@@ -56,7 +44,6 @@ public class LoginController {
                 return "redirect:/registration?error";
             }
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/";
     }

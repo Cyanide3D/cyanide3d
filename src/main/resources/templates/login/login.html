@@ -14,7 +14,7 @@
     </header>
     <h2 class="news">News</h2>
     <div class="content">
-        <h2>  Login</h2>
+        <h2> Login</h2>
         <hr>
         <div th:if="${param.error}">
             Invalid username or password.
@@ -22,16 +22,17 @@
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
+        <form id="12" th:method="GET" th:action="@{/registration}">
+
+        </form>
         <form class="formreg" th:action="@{/login}" method="post">
             <fieldset class="account-info">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
+                <div><label> Username : <input type="text" name="username"/> </label></div>
+                <div><label> Password: <input type="password" name="password"/> </label></div>
             </fieldset>
             <fieldset class="account-action">
-            <div><input class="btn" type="submit" value="Sign In"/></div>
-                <form th:method="GET" th:action="@{/registration}">
-                    <input style="margin-left: 30px" class="btn" type="submit" value="Sign Up"/>
-                </form>
+                <div><input class="btn" type="submit" value="Sign In"/></div>
+                <input style="margin-left: 30px" form="12" class="btn" type="submit" value="Sign Up"/>
             </fieldset>
         </form>
     </div>

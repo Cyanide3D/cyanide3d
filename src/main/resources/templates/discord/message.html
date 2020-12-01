@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Site</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" href="/static/css/index.css">
+</head>
+<body th:style="'background: url(/img/321.jpg) no-repeat center center fixed;'">
+<div class="wrap">
+    <header>
+        <h1 class="headerSite">Site *****</h1>
+        <br>
+        <hr>
+    </header>
+    <h2 class="news">News</h2>
+    <div class="content">
+        <form th:method="POST" th:action="@{/discord/message}" th:object="${check}">
+            <p>Choose channel: </p>
+            <select th:field="*{id}">
+                <option th:each="channels : ${channels}"
+                        th:value="${channels.getId()}"
+                        th:utext="${channels.getName()}">1</option>
+            </select>
+            <br>Anonymous <input type="checkbox" th:field="${message.anonymous}" th:value="on" name="message.anonymous"/><br>
+            <br><br>
+            <p>Enter message:</p>
+            <textarea rows="6" th:field="${message.message}" cols="40" wrap="hard" id="description"></textarea>
+            <br>
+            <input class="btn" type="submit" value="Send"/>
+        </form>
+
+    </div>
+    <aside>
+        <h2>Content</h2>
+        <ul>
+            <li><a href="/">Main page</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/news/new">Make news</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/login?logout">Logout</a></li>
+        </ul>
+    </aside>
+    <footer>
+        <p>(c)Cyanide3D</p>
+    </footer>
+</div>
+</body>
+</html>

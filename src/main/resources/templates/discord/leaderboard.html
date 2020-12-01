@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Site</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" href="/static/css/index.css">
+</head>
+<body th:style="'background: url(/img/321.jpg) no-repeat center center fixed;'">
+<div class="wrap">
+    <header>
+        <h1 class="headerSite">Site *****</h1>
+        <br>
+        <hr>
+    </header>
+    <h2 class="news">LeaderBoard</h2>
+    <div class="content">
+        <div th:each="leader : ${leaders}" style="border: white 4px double">
+            <p th:text="${leader.getAsTag()}"/> <p th:text="${leader.getLevel()}"/><p th:text="${leader.getExp()}"/>
+        </div>
+    </div>
+    <aside>
+        <h2>Content</h2>
+        <ul>
+            <li><a href="/">Main page</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/news/new">Make news</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/login?logout">Logout</a></li>
+        </ul>
+    </aside>
+    <footer>
+        <p>(c)Cyanide3D</p>
+    </footer>
+</div>
+</body>
+</html>
