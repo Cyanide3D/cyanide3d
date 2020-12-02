@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
         mailSender.send("Регистрация на сайте Defiant'S.", "Вы успешно зарегистрировались на сайте!\nВаш логин: " + user.getUsername() + "\nВаш пароль: " + user.getPassword(), user.getEmail());
         userDao.saveUser(newUser);
         userDao.saveUserRole("ROLE_USER", newUser);
-        userDao.saveUserAvatar("DEFAULT_AVATAR", newUser);
+        userDao.saveUserAvatar("https://cdn.discordapp.com/attachments/613894260152074240/783757562272415784/avatar_-_abstract_-_dribbble.webp", newUser);
     }
 
     public void update(User user) {

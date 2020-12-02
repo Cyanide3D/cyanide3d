@@ -16,9 +16,11 @@
                 <p th:utext="${news.getDescription()}"></p>
             </div>
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+        <div align="center" style="float: bottom; height: 30px">
+            <p th:each="number: ${#numbers.sequence(1,max)}">
+                <a style="float: left; margin-left: 15px" th:text="${number}" th:href="@{/news?page={page}(page=${number})}"/>
+            </p>
+        </div>
     </div>
     <aside th:replace="parts/menu :: menu"></aside>
     <footer th:replace="parts/menu :: footer"></footer>

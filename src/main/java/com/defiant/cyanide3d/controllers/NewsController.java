@@ -25,9 +25,14 @@ public class NewsController {
 
     @GetMapping()
     public String news(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+        int factor = 8;
+        if (page == 0) {
+            return "redirect:/news";
+        }
         List<News> allNews = newsService.index();
         allNews.sort(Comparator.comparing(News::getId));
-        model.addAttribute("news", allNews.subList(Math.max(allNews.size() - page * 8,0),Math.max(allNews.size() - (page - 1) * 8,0)).stream().sorted(Comparator.comparing(News::getId).reversed()).collect(Collectors.toList()));
+        model.addAttribute("max", allNews.size() % factor == 0 ? allNews.size() / factor : (allNews.size() / factor) + 1);
+        model.addAttribute("news", allNews.subList(Math.max(allNews.size() - page * factor, 0), Math.max(allNews.size() - (page - 1) * factor, 0)).stream().sorted(Comparator.comparing(News::getId).reversed()).collect(Collectors.toList()));
         return "news/allnews";
     }
 

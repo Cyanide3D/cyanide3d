@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <link rel="stylesheet" th:href="@{/css/index.css}">
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Site</title>
+<!--    <link th:href="@{/css/index.css}" rel="stylesheet" href="/static/css/index.css">-->
 </head>
-<body th:style="'background: url(/css/123321.jpg) no-repeat center center fixed;'">
+<body>
 <div class="wrap">
-    <header th:replace="parts/menu :: header"></header>
-    <h2 class="news">News</h2>
-    <div class="content">
-        <p th:text="${user.getUsername()}"></p>
-        <br>
-        <p th:text="${user.getId()}"></p>
+    <div style="border: 1px solid black; padding: 10px;float: left; margin-top: 20px; margin-right: 20px">
+        <img th:src="${user.getAvatarUrl().getAvatarUrl()}" style="width: auto; height: 100px">
     </div>
-    <aside th:replace="parts/menu :: menu"></aside>
-    <footer th:replace="parts/menu :: footer"></footer>
+    <table border="1">
+        <tr>
+            <td>Username: </td>
+            <td><p th:text="${user.getNameuser()}"/></td>
+        </tr>
+        <tr>
+            <td>Login: </td>
+            <td><p th:text="${user.getUsername()}"/></td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td><p th:text="${user.getEmail()}"/></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
