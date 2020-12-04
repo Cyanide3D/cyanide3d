@@ -1,15 +1,21 @@
 package com.defiant.cyanide3d.controllers;
 
 import com.defiant.cyanide3d.models.News;
+import com.defiant.cyanide3d.repositories.PageNewsRepository;
 import com.defiant.cyanide3d.services.NewsService;
 import com.defiant.cyanide3d.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,14 +31,10 @@ public class NewsController {
 
     @GetMapping()
     public String news(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
-        int factor = 8;
-        if (page == 0) {
+        if (page < 1){
             return "redirect:/news";
         }
-        List<News> allNews = newsService.index();
-        allNews.sort(Comparator.comparing(News::getId));
-        model.addAttribute("max", allNews.size() % factor == 0 ? allNews.size() / factor : (allNews.size() / factor) + 1);
-        model.addAttribute("news", allNews.subList(Math.max(allNews.size() - page * factor, 0), Math.max(allNews.size() - (page - 1) * factor, 0)).stream().sorted(Comparator.comparing(News::getId).reversed()).collect(Collectors.toList()));
+        model.addAttribute("news", newsService.onPageNews(page));
         return "news/allnews";
     }
 

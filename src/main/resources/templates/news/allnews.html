@@ -17,7 +17,7 @@
             </div>
         </div>
         <div align="center" style="float: bottom; height: 30px">
-            <p th:each="number: ${#numbers.sequence(1,max)}">
+            <p th:each="number: ${#numbers.sequence(1,news.getTotalPages())}">
                 <a style="float: left; margin-left: 15px" th:text="${number}" th:href="@{/news?page={page}(page=${number})}"/>
             </p>
         </div>
