@@ -23,12 +23,16 @@ public class UserService implements UserDetailsService {
     public void save(User user) {
         User newUser = new User(passwordEncoder.encode(user.getPassword()), user.getUsername(), true, true, true, true, user.getNameuser(), user.getEmail());
         mailSender.send("Регистрация на сайте Defiant'S.", "Вы успешно зарегистрировались на сайте!\nВаш логин: " + user.getUsername() + "\nВаш пароль: " + user.getPassword(), user.getEmail());
+        newUser.setAvatarurl("https://cdn.discordapp.com/attachments/613894260152074240/783757562272415784/avatar_-_abstract_-_dribbble.webp");
         userDao.saveUser(newUser);
         userDao.saveUserRole("ROLE_USER", newUser);
-        userDao.saveUserAvatar("https://cdn.discordapp.com/attachments/613894260152074240/783757562272415784/avatar_-_abstract_-_dribbble.webp", newUser);
     }
 
     public void update(User user) {
+        User oldUser = findUserByUsername(user.getUsername());
+        oldUser.setNameuser(user.getNameuser() == null?oldUser.getNameuser():user.getNameuser());
+        oldUser.setAvatarurl(user.getAvatarurl() == null?oldUser.getAvatarurl():user.getAvatarurl());
+        oldUser.setPassword(user.getPassword() == null?oldUser.getPassword():passwordEncoder.encode(user.getPassword()));
         userDao.update(user);
     }
 

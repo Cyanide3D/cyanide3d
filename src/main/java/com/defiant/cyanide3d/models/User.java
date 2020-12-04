@@ -39,8 +39,8 @@ public class User implements UserDetails {
     private int id;
     @Column(name = "nameuser")
     private String nameuser;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private UserAvatar avatarUrl;
+    @Column(name = "avatarurl")
+    String avatarurl;
     @NotEmpty(message = "EMail should not be empty")
     @Email(message = "Not valid email")
     @Column(name = "email")
@@ -142,12 +142,12 @@ public class User implements UserDetails {
         this.nameuser = nameuser;
     }
 
-    public UserAvatar getAvatarUrl() {
-        return avatarUrl;
+    public String getAvatarurl() {
+        return avatarurl;
     }
 
-    public void setAvatarUrl(UserAvatar avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setAvatarurl(String avatarUrl) {
+        this.avatarurl = avatarUrl;
     }
 
     public String getEmail() {
@@ -156,5 +156,22 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "authorities=" + authorities +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", id=" + id +
+                ", nameuser='" + nameuser + '\'' +
+                ", avatarurl='" + avatarurl + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

@@ -2,8 +2,6 @@ package com.defiant.cyanide3d.dao;
 
 import com.defiant.cyanide3d.models.Role;
 import com.defiant.cyanide3d.models.User;
-import com.defiant.cyanide3d.models.UserAvatar;
-import com.defiant.cyanide3d.repositories.AvatarRepository;
 import com.defiant.cyanide3d.repositories.RoleRepository;
 import com.defiant.cyanide3d.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ public class UserDaoImpl implements UserDao{
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
-    @Autowired
-    AvatarRepository avatarRepository;
 
     @Override
     public void saveUser(User user) {
@@ -31,14 +27,10 @@ public class UserDaoImpl implements UserDao{
         roleRepository.save(new Role(role,user));
     }
 
-    public void saveUserAvatar(String avatarUrl, User user){
-        avatarRepository.save(new UserAvatar(avatarUrl, user));
-    }
-
     @Transactional
     @Override
     public void update(User user) {
-        userRepository.updateById(user.getId(), user.getUsername(), user.getPassword(), user.getNameuser(), user.getEmail());
+        userRepository.updateById(user.getId(), user.getUsername(), user.getPassword(), user.getNameuser(), user.getEmail(), user.getAvatarurl());
     }
 
     @Override

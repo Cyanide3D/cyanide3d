@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Site</title>
+    <!--    <link th:href="@{/css/index.css}" rel="stylesheet" href="/static/css/index.css">-->
+</head>
+<body>
+<div class="wrap">
+    <p th:if="${param.error}">Invalid old password.</p>
+    <form class="formreg" th:method="POST" th:action="@{/profile}" th:object="${user}">
+        <label for="nameuser">Username: </label>
+        <input type="text" th:field="*{nameuser}" id="nameuser"/>
+        <br>
+        <label for="avatar">Avatar URL: </label>
+        <input type="text" th:field="*{avatarurl}" id="avatar"/>
+        <br>
+        <input type="submit" value="Edit">
+    </form>
+</div>
+</body>
+</html>

@@ -7,7 +7,6 @@ import java.util.List;
 public interface UserDao {
     void saveUser(User user);
     void saveUserRole(String role, User user);
-    void saveUserAvatar(String avatarUrl, User user);
     void update(User user);
     void delete(User user);
     User findUserByUsername(String username);
